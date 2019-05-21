@@ -5,6 +5,9 @@ from timeit import default_timer as timer
 from matplotlib import pyplot as plt
 from tqdm import tqdm
 from statistics import mean
+from insertion_sort import insertion_sort
+from selection_sort import selection_sort
+from quick_sort import quick_sort
 import numpy as np
 
 
@@ -23,13 +26,24 @@ def measure_search_time(sort_function, sz, repeats):
 
 
 def main():
+#    
+#    'np_quicksort': lambda a: np.sort(a, kind='quicksort'),
+#    
+#    def f(a):
+#        return np.sort(a, kind='quicksort')
+#    
+#    'np_quicksort': f
+    
     algorithms = {
         'sorted': sorted,
         'np_quicksort': lambda a: np.sort(a, kind='quicksort'),
-        'np_mergesort': lambda a: np.sort(a, kind='mergesort')
+        'np_mergesort': lambda a: np.sort(a, kind='mergesort'),
+        'insertion_sort': insertion_sort,
+        'selection_sort': selection_sort,
+        'quick_sort': quick_sort
     }
 
-    sizes = list(range(1, 100, 5)) + list(range(200, 5000, 50))
+    sizes = list(range(1, 100, 5)) + list(range(200, 500, 50))
     avg_time = {alg: [] for alg in algorithms}
     for sz in tqdm(sizes):
         for alg_name, f in algorithms.items():
